@@ -2,6 +2,7 @@ package com.canseesharp.kanbento.service;
 
 import com.canseesharp.kanbento.dto.EventDto;
 import com.canseesharp.kanbento.entity.Event;
+import com.canseesharp.kanbento.exception.ResourceNotFoundException;
 import com.canseesharp.kanbento.repository.EventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class DefaultEventService implements EventService{
     private Event findByIdOrThrow(Long id) {
         return eventRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
     }
 
     @Override
