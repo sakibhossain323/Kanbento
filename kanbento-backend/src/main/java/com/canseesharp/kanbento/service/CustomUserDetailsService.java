@@ -22,6 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         KanbentoUser kanbentoUser = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
+
         Set<GrantedAuthority> authorities = kanbentoUser.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
