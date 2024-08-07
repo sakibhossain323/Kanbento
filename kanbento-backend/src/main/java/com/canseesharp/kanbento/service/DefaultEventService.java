@@ -5,6 +5,7 @@ import com.canseesharp.kanbento.entity.Event;
 import com.canseesharp.kanbento.exception.ResourceNotFoundException;
 import com.canseesharp.kanbento.repository.EventRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DefaultEventService implements EventService{
     private final EventRepository eventRepository;
+    private final ModelMapper modelMapper;
 
     private Event findByIdOrThrow(Long id) {
         return eventRepository
@@ -22,23 +24,22 @@ public class DefaultEventService implements EventService{
 
     @Override
     public EventDto createEvent(EventDto eventDto) {
-        Event event = new Event();
-        event.setTitle(eventDto.getTitle());
+        Event event = modelMapper.map(eventDto, Event.class);
         event = eventRepository.save(event);
-        return new EventDto(event.getId(), event.getTitle());
+        return modelMapper.map(event, EventDto.class);
     }
 
     @Override
     public EventDto getEventById(Long id) {
         Event event = this.findByIdOrThrow(id);
-        return new EventDto(event.getId(), event.getTitle());
+        return modelMapper.map(event, EventDto.class);
     }
 
     @Override
     public List<EventDto> getAllEvents() {
         List<Event> events = eventRepository.findAll();
         return events.stream()
-                .map(event -> new EventDto(event.getId(), event.getTitle()))
+                .map(event -> modelMapper.map(event, EventDto.class))
                 .toList();
     }
 
@@ -47,7 +48,7 @@ public class DefaultEventService implements EventService{
         Event event = this.findByIdOrThrow(id);
         event.setTitle(eventDto.getTitle());
         event = eventRepository.save(event);
-        return new EventDto(event.getId(), event.getTitle());
+        return modelMapper.map(event, EventDto.class);
     }
 
     @Override
