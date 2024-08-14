@@ -2,6 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PageLayout from "./components/PageLayout";
 import LoginForm from "./components/LoginForm";
+import EventsGrid from "./components/EventsGrid";
 
 const router = createBrowserRouter([
     {
@@ -10,7 +11,11 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <h1>index</h1>,
+                element: <EventsGrid />,
+            },
+            {
+                path: "/events",
+                element: <EventsGrid />,
             },
             {
                 path: "/login",

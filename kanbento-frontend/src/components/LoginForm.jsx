@@ -40,9 +40,9 @@ const LoginForm = () => {
     };
 
     return (
-        <div className="container my-5">
+        <div className="container">
             <div className="row">
-                <div className="card col-md-6 offset-md-3">
+                <div className="card col-md-6 offset-md-3 my-5">
                     <h3 className="card-header text-center py-3">Login</h3>
                     <div className="card-body">
                         <form>
