@@ -9,7 +9,7 @@ const BASE_URL = "http://localhost:8080/api/events";
 export const getAllEvents = () => Promise.resolve({ data: events });
 
 export const getEvent = (id) =>
-    Promise.resolve({ data: events.find((event) => event.id === id) });
+    Promise.resolve({ data: events.find((event) => event.id == id) });
 
 const events = [
     {

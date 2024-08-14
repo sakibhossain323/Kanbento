@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PageLayout from "./components/PageLayout";
 import LoginForm from "./components/LoginForm";
 import EventsGrid from "./components/EventsGrid";
+import EventDetails from "./components/EventDetails";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
             {
                 path: "/events",
                 element: <EventsGrid />,
+            },
+            {
+                path: "/events/:id",
+                element: <EventDetails />,
             },
             {
                 path: "/login",
