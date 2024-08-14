@@ -1,6 +1,6 @@
 import React from "react";
 
-const FooterComponent = () => {
+const Footer = () => {
     return (
         <footer className="text-center py-3 bg-black text-light">
             Developed by{" "}
@@ -11,4 +11,4 @@ const FooterComponent = () => {
     );
 };
 
-export default FooterComponent;
+export default Footer;

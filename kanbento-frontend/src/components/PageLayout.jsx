@@ -1,17 +1,18 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import HeaderComponent from "./HeaderComponent";
-import FooterComponent from "./FooterComponent";
+import Header from "./Header";
+import Footer from "./Footer";
+import AuthContexProvider from "./AuthContex";
 
 const PageLayout = () => {
     return (
-        <>
-            <HeaderComponent />
+        <AuthContexProvider>
+            <Header />
             <section className="min-vh-100">
                 <Outlet />
             </section>
-            <FooterComponent />
-        </>
+            <Footer />
+        </AuthContexProvider>
     );
 };
 

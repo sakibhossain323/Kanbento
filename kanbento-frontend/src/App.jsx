@@ -1,6 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PageLayout from "./components/PageLayout";
+import LoginForm from "./components/LoginForm";
 
 const router = createBrowserRouter([
     {
@@ -12,8 +13,12 @@ const router = createBrowserRouter([
                 element: <h1>index</h1>,
             },
             {
-                path: "/about",
-                element: <h1>about</h1>,
+                path: "/login",
+                element: <LoginForm />,
+            },
+            {
+                path: "/register",
+                element: <h1>register</h1>,
             },
         ],
     },
