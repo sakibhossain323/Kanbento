@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { register } from "../services/AuthService";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const UserRegistrationForm = () => {
     const [username, setUsername] = useState("");
@@ -12,6 +14,8 @@ const UserRegistrationForm = () => {
         password: "",
         confirmPassword: "",
     });
+
+    const navigate = useNavigate();
 
     const isFormValid = () => {
         const currentErrors = { ...errors };
@@ -35,9 +39,16 @@ const UserRegistrationForm = () => {
             register(user)
                 .then((response) => {
                     console.log(response);
+                    toast.success("Registration successful", {
+                        autoClose: 7000,
+                    });
+                    navigate("/login");
                 })
                 .catch((error) => {
                     console.error(error);
+                    toast.error("Registration failed", {
+                        position: "top-center",
+                    });
                 });
         }
     };

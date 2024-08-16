@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getUser } from "../services/AuthService";
+import { getSavedUser } from "../services/AuthService";
 
 export const AuthContext = createContext();
 
@@ -9,7 +9,7 @@ const AuthContexProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const savedUser = getUser();
+        const savedUser = getSavedUser();
         if (savedUser) {
             setUser(savedUser);
         }
