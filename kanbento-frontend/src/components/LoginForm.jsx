@@ -33,8 +33,8 @@ const LoginForm = () => {
             login(credentials)
                 .then((response) => {
                     console.log(response.data);
-                    saveCredentials(response.data, usernameOrEmail); // will send only response.data
-                    setUser(usernameOrEmail); // will take username from response
+                    saveCredentials(response.data);
+                    setUser(response.data.username);
                     toast.success("Login successful", { autoClose: 2000 });
                     navigate("/events");
                 })

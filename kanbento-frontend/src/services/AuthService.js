@@ -7,11 +7,6 @@ export const register = (user) => axios.post(BASE_URL + "/register", user);
 export const login = (credentials) =>
     axios.post(BASE_URL + "/login", credentials);
 
-export const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/";
-};
 // Saved Credential Management
 
 export const saveToken = (token) => {
@@ -30,9 +25,9 @@ export const getSavedUser = () => {
     return localStorage.getItem("user");
 };
 
-export const saveCredentials = (responseData, user) => {
+export const saveCredentials = (responseData) => {
     saveToken("Bearer " + responseData.accessToken);
-    saveUser(user);
+    saveUser(responseData.username);
 };
 
 export const removeSavedCredentials = () => {
