@@ -1,10 +1,20 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "./AuthContex";
-import { logout } from "../services/AuthService";
+import { removeSavedCredentials } from "../services/AuthService";
+import { toast } from "react-toastify";
 const Header = () => {
     const { user, setUser } = useAuthContext();
+
+    const handleLogout = () => {
+        removeSavedCredentials();
+        setUser(null);
+        toast.info("You have been logged out", {
+            autoClose: 2000,
+        });
+    };
+
     return (
         <header>
             <Navbar expand="lg" bg="black" data-bs-theme="dark">
@@ -27,9 +37,9 @@ const Header = () => {
                                     {user}
                                 </NavLink>
                                 <NavLink
-                                    to="/logout"
+                                    to="/login"
                                     className="nav-link"
-                                    onClick={logout}
+                                    onClick={handleLogout}
                                 >
                                     Logout
                                 </NavLink>

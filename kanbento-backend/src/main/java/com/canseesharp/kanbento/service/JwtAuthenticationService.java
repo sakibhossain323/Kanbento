@@ -4,7 +4,6 @@ import com.canseesharp.kanbento.dto.JwtAuthenticationResponse;
 import com.canseesharp.kanbento.dto.UserLoginDto;
 import com.canseesharp.kanbento.dto.UserRegistrationDto;
 import com.canseesharp.kanbento.entity.KanbentoUser;
-import com.canseesharp.kanbento.entity.Role;
 import com.canseesharp.kanbento.exception.AlreadyExistsException;
 import com.canseesharp.kanbento.repository.RoleRepository;
 import com.canseesharp.kanbento.repository.UserRepository;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,7 +28,7 @@ public class JwtAuthenticationService implements AuthenticationService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtProvider;
     @Override
     public void register(UserRegistrationDto userRegistrationDto) {
         userRepository.findByUsername(userRegistrationDto.getUsername())
@@ -62,9 +60,11 @@ public class JwtAuthenticationService implements AuthenticationService {
                 ));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtProvider.generateToken(authentication);
 
         JwtAuthenticationResponse response = new JwtAuthenticationResponse();
-        response.setAccessToken(jwtTokenProvider.generateToken(authentication));
+        response.setAccessToken(jwt);
+        response.setUsername(jwtProvider.getUsername(jwt));
         response.setRole(authentication
                 .getAuthorities()
                 .stream()

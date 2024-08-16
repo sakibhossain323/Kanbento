@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { login, storeToken, storeUser } from "../services/AuthService";
+import { login, saveCredentials } from "../services/AuthService";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./AuthContex";
-import { redirect } from "react-router-dom";
 
 const LoginForm = () => {
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
@@ -11,7 +12,10 @@ const LoginForm = () => {
         password: "",
     });
 
-    const isCredentialsValid = () => {
+    const { user, setUser } = useAuthContext();
+    const navigate = useNavigate();
+
+    const isFormValid = () => {
         const currentErrors = { ...errors };
         currentErrors.usernameOrEmail = usernameOrEmail
             ? ""
@@ -21,17 +25,18 @@ const LoginForm = () => {
         return Object.values(currentErrors).every((error) => !error);
     };
 
-    const handlesubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (isCredentialsValid()) {
+        if (isFormValid()) {
             const credentials = { usernameOrEmail, password };
             login(credentials)
                 .then((response) => {
                     console.log(response.data);
-                    storeToken("Bearer " + response.data.accessToken);
-                    storeUser(usernameOrEmail);
-                    window.location.href = "/";
+                    saveCredentials(response.data);
+                    setUser(response.data.username);
+                    toast.success("Login successful", { autoClose: 2000 });
+                    navigate("/events");
                 })
                 .catch((error) => {
                     console.error(error);
@@ -81,7 +86,7 @@ const LoginForm = () => {
                             <button
                                 type="submit"
                                 className="btn btn-dark form-control py-2 my-4"
-                                onClick={handlesubmit}
+                                onClick={handleSubmit}
                             >
                                 Login
                             </button>

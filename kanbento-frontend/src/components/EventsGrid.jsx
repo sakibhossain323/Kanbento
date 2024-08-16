@@ -13,7 +13,7 @@ const EventsGrid = () => {
             .catch((error) => {
                 console.error(error);
             });
-    });
+    }, []);
 
     return (
         <div className="container">
