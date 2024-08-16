@@ -4,6 +4,7 @@ import PageLayout from "./components/PageLayout";
 import LoginForm from "./components/LoginForm";
 import EventsGrid from "./components/EventsGrid";
 import EventDetails from "./components/EventDetails";
+import UserRegistrationForm from "./components/UserRegistrationForm";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/register",
-                element: <h1>register</h1>,
+                element: <UserRegistrationForm />,
             },
         ],
     },

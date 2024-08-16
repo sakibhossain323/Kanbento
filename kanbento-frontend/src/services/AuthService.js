@@ -26,3 +26,5 @@ export const logout = () => {
     localStorage.removeItem("user");
     window.location.href = "/";
 };
+
+export const register = (user) => axios.post(BASE_URL + "/register", user);
