@@ -29,6 +29,9 @@ const Header = () => {
                             <NavLink to="/events" className="nav-link">
                                 Events
                             </NavLink>
+                            <NavLink to="/create-organization" className="nav-link">
+                                Create Organization
+                            </NavLink>
                         </Nav>
 
                         {user ? (
