@@ -29,15 +29,21 @@ const Header = () => {
                             <NavLink to="/events" className="nav-link">
                                 Events
                             </NavLink>
-                            <NavLink to="/create-organization" className="nav-link">
-                                Create Organization
-                            </NavLink>
+
+                            {user && (
+                                <NavLink
+                                    to="/organizations"
+                                    className="nav-link"
+                                >
+                                    Organizations
+                                </NavLink>
+                            )}
                         </Nav>
 
                         {user ? (
                             <Nav>
                                 <NavLink to="/profile" className="nav-link">
-                                    {user}
+                                    {user.username}
                                 </NavLink>
                                 <NavLink
                                     to="/login"

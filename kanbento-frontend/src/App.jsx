@@ -5,12 +5,16 @@ import LoginForm from "./components/LoginForm";
 import EventsGrid from "./components/EventsGrid";
 import EventDetails from "./components/EventDetails";
 import UserRegistrationForm from "./components/UserRegistrationForm";
+import OrganizationsList from "./components/OrganizationsList";
+import { authLoader } from "./components/AuthContex";
 import CreateOrganization from "./components/CreateOrganization";
+import OrganizationDashboard from "./components/OrganizationDashboard";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <PageLayout />,
+        loader: authLoader,
         children: [
             {
                 index: true,
@@ -33,9 +37,17 @@ const router = createBrowserRouter([
                 element: <UserRegistrationForm />,
             },
             {
-                path: "/create-organization",
+                path: "/organizations",
+                element: <OrganizationsList />,
+            },
+            {
+                path: "/organizations/create",
                 element: <CreateOrganization />,
-            }
+            },
+            {
+                path: "/organizations/:id",
+                element: <OrganizationDashboard />,
+            },
         ],
     },
 ]);

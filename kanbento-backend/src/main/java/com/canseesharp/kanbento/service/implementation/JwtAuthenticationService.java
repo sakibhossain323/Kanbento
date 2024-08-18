@@ -1,6 +1,7 @@
 package com.canseesharp.kanbento.service.implementation;
 
 import com.canseesharp.kanbento.dto.JwtAuthenticationResponse;
+import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.dto.UserLoginDto;
 import com.canseesharp.kanbento.dto.UserRegistrationDto;
 import com.canseesharp.kanbento.entity.KanbentoUser;
@@ -61,16 +62,20 @@ public class JwtAuthenticationService implements AuthenticationService {
                 ));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String jwt = jwtProvider.generateToken(authentication);
+        String username = jwtProvider.getUsername(jwt);
 
         JwtAuthenticationResponse response = new JwtAuthenticationResponse();
         response.setAccessToken(jwt);
-        response.setUsername(jwtProvider.getUsername(jwt));
-        response.setRole(authentication
-                .getAuthorities()
+        response.setRole(authentication.getAuthorities()
                 .stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
+                .orElse(null)
+        );
+        response.setUser(userRepository.findByUsername(username)
+                .map(user -> new KanbentoUserDto(user.getId(), user.getUsername(), user.getEmail()))
                 .orElse(null)
         );
 

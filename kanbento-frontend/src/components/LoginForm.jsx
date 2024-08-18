@@ -34,7 +34,7 @@ const LoginForm = () => {
                 .then((response) => {
                     console.log(response.data);
                     saveCredentials(response.data);
-                    setUser(response.data.username);
+                    setUser(response.data.user);
                     toast.success("Login successful", { autoClose: 2000 });
                     navigate("/events");
                 })
