@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm";
 import EventsGrid from "./components/EventsGrid";
 import EventDetails from "./components/EventDetails";
 import UserRegistrationForm from "./components/UserRegistrationForm";
+import CreateOrganization from "./components/CreateOrganization";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <UserRegistrationForm />,
             },
+            {
+                path: "/create-organization",
+                element: <CreateOrganization />,
+            }
         ],
     },
 ]);

@@ -1,4 +1,4 @@
-package com.canseesharp.kanbento.service;
+package com.canseesharp.kanbento.service.implementation;
 
 import com.canseesharp.kanbento.entity.KanbentoUser;
 import com.canseesharp.kanbento.repository.UserRepository;

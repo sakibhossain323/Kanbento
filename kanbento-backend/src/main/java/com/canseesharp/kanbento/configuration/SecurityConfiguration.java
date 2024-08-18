@@ -25,6 +25,9 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(customizer -> {
                     customizer.requestMatchers("/auth/**").permitAll();
+                    customizer.requestMatchers("/users/**").permitAll();
+                    customizer.requestMatchers("/**").permitAll();
+                    customizer.requestMatchers("/organizations/**").permitAll();
                     customizer.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
 
