@@ -1,18 +1,17 @@
-package com.canseesharp.kanbento.service;
+package com.canseesharp.kanbento.service.implementation;
 
 import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.entity.KanbentoUser;
 import com.canseesharp.kanbento.exception.ResourceNotFoundException;
 import com.canseesharp.kanbento.repository.UserRepository;
+import com.canseesharp.kanbento.service.KanbentoUserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
-public class DefaultKanbentoUserService implements KanbentoUserService{
+public class DefaultKanbentoUserService implements KanbentoUserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;

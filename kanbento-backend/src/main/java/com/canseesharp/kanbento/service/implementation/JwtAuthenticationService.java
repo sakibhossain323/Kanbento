@@ -1,4 +1,4 @@
-package com.canseesharp.kanbento.service;
+package com.canseesharp.kanbento.service.implementation;
 
 import com.canseesharp.kanbento.dto.JwtAuthenticationResponse;
 import com.canseesharp.kanbento.dto.UserLoginDto;
@@ -8,6 +8,7 @@ import com.canseesharp.kanbento.exception.AlreadyExistsException;
 import com.canseesharp.kanbento.repository.RoleRepository;
 import com.canseesharp.kanbento.repository.UserRepository;
 import com.canseesharp.kanbento.security.JwtTokenProvider;
+import com.canseesharp.kanbento.service.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

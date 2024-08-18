@@ -1,13 +1,12 @@
-package com.canseesharp.kanbento.service;
+package com.canseesharp.kanbento.service.implementation;
 
-import com.canseesharp.kanbento.dto.EventDto;
 import com.canseesharp.kanbento.dto.OrganizationDto;
-import com.canseesharp.kanbento.entity.Event;
 import com.canseesharp.kanbento.entity.KanbentoUser;
 import com.canseesharp.kanbento.entity.Organization;
 import com.canseesharp.kanbento.exception.ResourceNotFoundException;
 import com.canseesharp.kanbento.repository.OrganizationRepository;
 import com.canseesharp.kanbento.repository.UserRepository;
+import com.canseesharp.kanbento.service.OrganizationService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

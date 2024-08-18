@@ -14,5 +14,5 @@ public class EventDto {
     private String location;
     private String date;
     private String time;
-    private Long userId;
+    private Long organizationId;
 }

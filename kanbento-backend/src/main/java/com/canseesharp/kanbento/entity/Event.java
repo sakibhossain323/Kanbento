@@ -32,6 +32,6 @@ public class Event {
 
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private KanbentoUser user;
+    @JoinColumn(name = "organization_id", referencedColumnName = "id")
+    private Organization organization;
 }
