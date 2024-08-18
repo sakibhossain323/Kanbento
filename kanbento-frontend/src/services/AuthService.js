@@ -18,16 +18,16 @@ export const getSavedToken = () => {
 };
 
 export const saveUser = (user) => {
-    localStorage.setItem("user", user);
+    localStorage.setItem("user", JSON.stringify(user));
 };
 
 export const getSavedUser = () => {
-    return localStorage.getItem("user");
+    return JSON.parse(localStorage.getItem("user"));
 };
 
 export const saveCredentials = (responseData) => {
     saveToken("Bearer " + responseData.accessToken);
-    saveUser(responseData.username);
+    saveUser(responseData.user);
 };
 
 export const removeSavedCredentials = () => {
