@@ -1,107 +1,144 @@
-import React, { useEffect, useState } from 'react'
-import { createOrganizationService } from '../services/OrganizationService'
-import { useAuthContext } from './AuthContex'
-import { getUserByUsername } from '../services/KanbentoUserService';
+import React, { useEffect, useState } from "react";
+import { createOrganization } from "../services/OrganizationService";
+import { useAuthContext } from "./AuthContex";
+import { useNavigate } from "react-router-dom";
 
 const CreateOrganization = () => {
-
-
-    const { user, setUser } = useAuthContext();
-    const [name,setName] = useState('')
-    const [description,setDescription] = useState('')
-    const [location,setLocation] = useState('')
-    const [email,setEmail] = useState('')
-    const [ownerId,setOwnerId] = useState('')
-
-    
-        useEffect(() => {
-            const fetchOwnerId = async () => {
-                try{
-                    console.log('User => ' + user)
-                    const response = await getUserByUsername(user)
-                    const ownerId = response.data.id
-                    setOwnerId(ownerId)
-                }catch(err){
-                    console.log(err)
-                }
-            }
-            fetchOwnerId()
-        }, [user])
-    
-
-
-    function saveOrganization(e) {
-        e.preventDefault()
-        let organization = {name, description, location, email, ownerId}
-        console.log('Organization => ' + JSON.stringify(organization))
-
-
-        createOrganizationService(organization).then(res => {
-            console.log('Response => ' + JSON.stringify(res.data))
-            alert('Organization created successfully')
-        })
+    const { user } = useAuthContext();
+    if (!user) {
+        return <Navigate to="/login" />;
     }
 
-  return (
-    <div className='conatiner'>
-        <br></br> <br></br>
-        <div className='row'>
-            <div className='card col-md-6 offset-md-3 offset-md-3'>
-                <h2 className='text-center'>Create Organization</h2>
-                <div className='card-body'>
-                    <form>
-                        <div className='form-group mb-2'>
-                            <label className='form-label'>Organization Name:</label>
-                            <input
-                                type='text' 
-                                placeholder='Enter Organization Name' 
-                                name='organizationName' className='form-control'
-                                value={name} onChange={(e) => setName(e.target.value)} 
-                            />
-                        </div>
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [location, setLocation] = useState("");
+    const [email, setEmail] = useState("");
 
-                        <div className='form-group mb-2'>
-                            <label className='form-label'>Description:</label>
-                            <input
-                                type='text' 
-                                placeholder='Enter Description' 
-                                name='description' className='form-control'
-                                value={description} onChange={(e) => setDescription(e.target.value)} 
-                            />
-                        </div>
+    const [errors, setErrors] = useState({
+        name: "",
+        description: "",
+        location: "",
+        email: "",
+    });
 
-                        <div className='form-group mb-2'>
-                            <label className='form-label'>Location:</label>
-                            <input
-                                type='text' 
-                                placeholder='Enter Location' 
-                                name='location' className='form-control'
-                                value={location} onChange={(e) => setLocation(e.target.value)} 
-                            />
-                        </div>
+    const navigate = useNavigate();
 
-                        <div className='form-group mb-2'>
-                            <label className='form-label'>Email:</label>
-                            <input
-                                type='email' 
-                                placeholder='Enter Email' 
-                                name='email' className='form-control'
-                                value={email} onChange={(e) => setEmail(e.target.value)} 
-                            />
-                        </div>
-                    
-                        <button className='btn btn-success' onClick={(e) => saveOrganization(e)}>Create</button>
-                        
-                    </form>
+    const isFormValid = () => {
+        const currentErrors = { ...errors };
+        currentErrors.name = name ? "" : "Name is required";
+        currentErrors.description = description
+            ? ""
+            : "Description is required";
+        currentErrors.location = location ? "" : "Location is required";
+        currentErrors.email = email ? "" : "Email is required";
+        setErrors(currentErrors);
+        return Object.values(currentErrors).every((error) => !error);
+    };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (isFormValid()) {
+            const organization = {
+                name,
+                description,
+                location,
+                email,
+                ownerId: user.id,
+            };
+            createOrganization(organization)
+                .then((response) => {
+                    console.log(response.data);
+                    navigate("/organizations");
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    };
+
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="card col-md-6 offset-md-3 my-5">
+                    <h3 className="card-header text-center py-3">
+                        Create Organization
+                    </h3>
+                    <div className="card-body">
+                        <form>
+                            <div className="mb-3">
+                                <label className="form-label">Name</label>
+                                <input
+                                    type="text"
+                                    className={`form-control ${
+                                        errors.name && "is-invalid"
+                                    }`}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                                <div className="invalid-feedback">
+                                    {errors.name}
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">
+                                    Description
+                                </label>
+                                <textarea
+                                    className={`form-control ${
+                                        errors.description && "is-invalid"
+                                    }`}
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
+                                ></textarea>
+                                <div className="invalid-feedback">
+                                    {errors.description}
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Location</label>
+                                <input
+                                    type="text"
+                                    className={`form-control ${
+                                        errors.location && "is-invalid"
+                                    }`}
+                                    value={location}
+                                    onChange={(e) =>
+                                        setLocation(e.target.value)
+                                    }
+                                />
+                                <div className="invalid-feedback">
+                                    {errors.location}
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Email</label>
+                                <input
+                                    type="email"
+                                    className={`form-control ${
+                                        errors.email && "is-invalid"
+                                    }`}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <div className="invalid-feedback">
+                                    {errors.email}
+                                </div>
+                            </div>
+                            <button
+                                className="btn btn-dark form-control py-2 my-4"
+                                onClick={handleSubmit}
+                            >
+                                Create
+                            </button>
+                        </form>
+                    </div>
                 </div>
-
             </div>
-
         </div>
+    );
+};
 
-    </div>
-  )
-}
-
-export default CreateOrganization
+export default CreateOrganization;

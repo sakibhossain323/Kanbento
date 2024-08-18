@@ -1,19 +1,18 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getSavedUser } from "../services/AuthService";
+import { useLoaderData } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const useAuthContext = () => useContext(AuthContext);
 
-const AuthContexProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+export const authLoader = () => {
+    return getSavedUser();
+};
 
-    useEffect(() => {
-        const savedUser = getSavedUser();
-        if (savedUser) {
-            setUser(savedUser);
-        }
-    }, []);
+const AuthContexProvider = ({ children }) => {
+    const loadedUser = useLoaderData();
+    const [user, setUser] = useState(loadedUser);
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>
