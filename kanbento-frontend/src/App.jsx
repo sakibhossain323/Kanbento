@@ -47,6 +47,20 @@ const router = createBrowserRouter([
             {
                 path: "/organizations/:id",
                 element: <OrganizationDashboard />,
+                children: [
+                    {
+                        index: true,
+                        element: <h1>organization dashboard</h1>,
+                    },
+                    {
+                        path: "events",
+                        element: <h1>event list</h1>,
+                    },
+                    {
+                        path: "members",
+                        element: <h1>member list</h1>,
+                    },
+                ],
             },
         ],
     },
