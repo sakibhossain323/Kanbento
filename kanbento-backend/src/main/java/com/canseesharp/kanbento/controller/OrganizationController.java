@@ -1,5 +1,6 @@
 package com.canseesharp.kanbento.controller;
 
+import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.dto.OrganizationDto;
 import com.canseesharp.kanbento.service.OrganizationService;
 import lombok.AllArgsConstructor;
@@ -44,6 +45,15 @@ public class OrganizationController {
         return new ResponseEntity<>(organizationDtos, HttpStatus.OK);
     }
 
+    // Build Get All Organizations By Owner Id Rest API
+    @GetMapping("/owner/{ownerId}")
+    public ResponseEntity<List<OrganizationDto>> getAllOrganizationsByOwnerId(@PathVariable Long ownerId)
+    {
+        List<OrganizationDto> organizationDtos = organizationService.getAllOrganizationsByOwnerId(ownerId);
+
+        return new ResponseEntity<>(organizationDtos, HttpStatus.OK);
+    }
+
     // Build Update Organization Rest API
     @PutMapping("/{organizationId}")
     public ResponseEntity<OrganizationDto> updateOrganization(@RequestBody OrganizationDto organizationDto, @PathVariable Long organizationId)
@@ -78,5 +88,14 @@ public class OrganizationController {
         OrganizationDto updatedOrganization = organizationService.removeMember(organizationId, memberId);
 
         return ResponseEntity.ok("Member removed successfully");
+    }
+
+    // Build Get All Members Rest API
+    @GetMapping("/{organizationId}/members")
+    public ResponseEntity<List<KanbentoUserDto>> getAllMembers(@PathVariable Long organizationId)
+    {
+        List<KanbentoUserDto> members = organizationService.getAllMembers(organizationId);
+
+        return new ResponseEntity<>(members, HttpStatus.OK);
     }
 }

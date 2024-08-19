@@ -1,5 +1,6 @@
 package com.canseesharp.kanbento.service.implementation;
 
+import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.dto.OrganizationDto;
 import com.canseesharp.kanbento.entity.KanbentoUser;
 import com.canseesharp.kanbento.entity.Organization;
@@ -66,6 +67,16 @@ public class DefaultOrganizationService implements OrganizationService {
     }
 
     @Override
+    public List<OrganizationDto> getAllOrganizationsByOwnerId(Long ownerId) {
+
+        List<Organization> organizations = organizationRepository.findAllByOwnerId(ownerId);
+
+        return organizations.stream()
+                .map(organization -> modelMapper.map(organization, OrganizationDto.class))
+                .toList();
+    }
+
+    @Override
     public OrganizationDto updateOrganization(OrganizationDto organizationDto, Long id) {
 
         Organization organization = this.findByIdOrThrow(id);
@@ -118,5 +129,16 @@ public class DefaultOrganizationService implements OrganizationService {
         organization = organizationRepository.save(organization);
 
         return modelMapper.map(organization, OrganizationDto.class);
+    }
+
+    @Override
+    public List<KanbentoUserDto> getAllMembers(Long organizationId) {
+
+        Organization organization = this.findByIdOrThrow(organizationId);
+        Set<KanbentoUser> members = organization.getMembers();
+
+        return members.stream()
+                .map(member -> modelMapper.map(member, KanbentoUserDto.class))
+                .toList();
     }
 }

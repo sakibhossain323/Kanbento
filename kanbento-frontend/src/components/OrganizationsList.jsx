@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "./AuthContex";
 import { Navigate, useNavigate } from "react-router-dom";
-import { getAllOrganizations } from "../services/OrganizationService";
+import { getAllOrganizations, getOrganizationsByOwnerId } from "../services/OrganizationService";
 
 const OrganizationsList = () => {
     const { user, setUser } = useAuthContext();
@@ -14,7 +14,9 @@ const OrganizationsList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getAllOrganizations()
+        console.log(user);
+
+        getOrganizationsByOwnerId(user.id)
             .then((response) => {
                 setOrganizations(response.data);
             })

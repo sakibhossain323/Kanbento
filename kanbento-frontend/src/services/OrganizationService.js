@@ -9,3 +9,6 @@ export const getAllOrganizations = () => axios.get(BASE_ORGANIZATION_API_URL);
 
 export const getOrganizationById = (id) =>
     axios.get(`${BASE_ORGANIZATION_API_URL}/${id}`);
+
+export const getOrganizationsByOwnerId = (ownerId) => 
+    axios.get(`${BASE_ORGANIZATION_API_URL}/owner/${ownerId}`);
