@@ -9,6 +9,8 @@ import OrganizationsList from "./components/OrganizationsList";
 import { authLoader } from "./components/AuthContex";
 import CreateOrganization from "./components/CreateOrganization";
 import OrganizationDashboard from "./components/OrganizationDashboard";
+import OrganizationEventList from "./components/OrganizationEventList";
+import CreateEvent from "./components/CreateEvent";
 
 const router = createBrowserRouter([
     {
@@ -50,11 +52,15 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <h1>organization dashboard</h1>,
+                        element: <h1>Overview</h1>,
                     },
                     {
                         path: "events",
-                        element: <h1>event list</h1>,
+                        element: <OrganizationEventList />,
+                    },
+                    {
+                        path: "events/create",
+                        element: <CreateEvent />,
                     },
                     {
                         path: "members",

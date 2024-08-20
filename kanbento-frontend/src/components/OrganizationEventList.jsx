@@ -1,42 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useAuthContext } from "./AuthContex";
-import { Navigate, useNavigate } from "react-router-dom";
-import {
-    getAllOrganizations,
-    getOrganizationsByOwnerId,
-} from "../services/OrganizationService";
+import { useNavigate } from "react-router-dom";
+import { getAllEvents } from "../services/EventService";
 
-const OrganizationsList = () => {
-    const { user, setUser } = useAuthContext();
-
-    if (!user) {
-        return <Navigate to="/login" />;
-    }
-
-    const [organizations, setOrganizations] = useState([]);
-    const navigate = useNavigate();
+const OrganizationEventList = () => {
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        console.log(user);
-
-        getOrganizationsByOwnerId(user.id)
+        getAllEvents()
             .then((response) => {
-                setOrganizations(response.data);
+                setEvents(response.data);
             })
             .catch((error) => {
                 console.error(error);
             });
     }, []);
 
+    const navigate = useNavigate();
+
     return (
         <div className="container">
             <div className="row my-3">
-                <h1 className="text-center my-5">Organizations</h1>
+                <h1 className="text-center my-5">Events</h1>
                 <div className="col-2">
                     <button
                         className="btn btn-dark"
                         onClick={() => {
-                            navigate("/organizations/create");
+                            navigate("create");
                         }}
                     >
                         Create
@@ -48,23 +37,23 @@ const OrganizationsList = () => {
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Owner</th>
+                                <th>Title</th>
+                                <th>Venue</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {organizations.map((organization) => (
-                                <tr key={organization?.id}>
-                                    <td>{organization?.name}</td>
-                                    <td>{organization?.ownerId}</td>
+                            {events.map((event) => (
+                                <tr key={event?.id}>
+                                    <td>{event?.title}</td>
+                                    <td>{event?.location}</td>
+                                    <td>{event?.date}</td>
                                     <td>
                                         <button
                                             className="btn btn-dark"
                                             onClick={() => {
-                                                navigate(
-                                                    `/organizations/${organization.id}`
-                                                );
+                                                navigate(`${event.id}`);
                                             }}
                                         >
                                             View
@@ -80,4 +69,4 @@ const OrganizationsList = () => {
     );
 };
 
-export default OrganizationsList;
+export default OrganizationEventList;
