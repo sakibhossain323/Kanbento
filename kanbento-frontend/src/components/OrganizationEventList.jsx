@@ -20,7 +20,7 @@ const OrganizationEventList = () => {
     return (
         <div className="container">
             <div className="row my-3">
-                <h1 className="text-center my-5">Events</h1>
+                <h2 className="text-center my-5">Events</h2>
                 <div className="col-2">
                     <button
                         className="btn btn-dark"
