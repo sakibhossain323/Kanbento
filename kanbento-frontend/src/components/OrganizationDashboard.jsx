@@ -54,17 +54,6 @@ const OrganizationDashboard = () => {
             </div>
         </div>
     );
-
-    return (
-        <div className="row">
-            <div className="col-sm-5 col-md-4 col-lg-3 col-xxl-2">
-                <Sidebar id={organization.id} name={organization.name} />
-            </div>
-            <div className="col">
-                <Outlet />
-            </div>
-        </div>
-    );
 };
 
 export default OrganizationDashboard;
