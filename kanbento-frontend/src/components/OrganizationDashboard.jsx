@@ -44,14 +44,8 @@ const OrganizationDashboard = () => {
                     <h1>{organization.name}</h1>
                 </div>
             </div>
-            <div className="row d-lg-none bg-danger">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint
-                distinctio tempore atque, impedit quisquam fugit temporibus
-                dicta blanditiis at? Voluptatibus in quo aliquid unde quaerat?
-                Quae voluptates in vero eius!
-            </div>
             <div className="row">
-                <div className="col-md-3 d-none d-lg-block">
+                <div className="col-lg-3 col-12">
                     <Sidebar navlinks={navlinks} />
                 </div>
                 <div className="col">

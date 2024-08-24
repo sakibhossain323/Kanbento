@@ -11,6 +11,7 @@ import CreateOrganization from "./components/CreateOrganization";
 import OrganizationDashboard from "./components/OrganizationDashboard";
 import OrganizationEventList from "./components/OrganizationEventList";
 import CreateEvent from "./components/CreateEvent";
+import OrganizationMembersList from "./components/OrganizationMembersList";
 
 const router = createBrowserRouter([
     {
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "members",
-                        element: <h1>member list</h1>,
+                        element: <OrganizationMembersList />,
                     },
                 ],
             },

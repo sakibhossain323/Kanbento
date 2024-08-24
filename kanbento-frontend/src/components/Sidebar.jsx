@@ -9,7 +9,7 @@ const Sidebar = (props) => {
         <Navbar
             bg="tertiary"
             data-bs-theme="light"
-            className="flex-column my-5 align-items-start"
+            className="flex-column align-items-start my-5"
         >
             <Nav className="flex-column w-75">
                 {navlinks.map((link) => (
