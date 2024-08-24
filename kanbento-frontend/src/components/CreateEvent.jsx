@@ -57,10 +57,8 @@ const CreateEvent = () => {
     return (
         <div className="container">
             <div className="row">
-                <div className="card col-md-6 offset-md-3 my-5">
-                    <h3 className="card-header text-center py-3">
-                        Create Event
-                    </h3>
+                <div className="col-md-8 offset-md-2 my-5">
+                    <h3 className="text-center my-3">Create an Event</h3>
                     <div className="card-body">
                         <form>
                             <div className="mb-3">
