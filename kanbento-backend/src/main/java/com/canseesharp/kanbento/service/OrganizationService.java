@@ -1,5 +1,6 @@
 package com.canseesharp.kanbento.service;
 
+import com.canseesharp.kanbento.dto.EventDto;
 import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.dto.OrganizationDto;
 import com.canseesharp.kanbento.entity.KanbentoUser;
@@ -19,6 +20,8 @@ public interface OrganizationService {
     OrganizationDto updateOrganization(OrganizationDto organizationDto, Long id);
 
     void deleteOrganization(Long id);
+
+    List<EventDto> getAllEvents(Long organizationId);
 
     OrganizationDto addMember(Long organizationId, Long memberId);
 

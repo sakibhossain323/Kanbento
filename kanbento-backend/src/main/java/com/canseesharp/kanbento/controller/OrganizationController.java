@@ -1,5 +1,6 @@
 package com.canseesharp.kanbento.controller;
 
+import com.canseesharp.kanbento.dto.EventDto;
 import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.dto.OrganizationDto;
 import com.canseesharp.kanbento.service.OrganizationService;
@@ -70,6 +71,13 @@ public class OrganizationController {
         organizationService.deleteOrganization(organizationId);
 
         return ResponseEntity.ok("Organization deleted successfully");
+    }
+
+    @GetMapping("/{organizationId}/events")
+    public ResponseEntity<List<EventDto>> getAllEvents(@PathVariable Long organizationId)
+    {
+        List<EventDto> events = organizationService.getAllEvents(organizationId);
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     // Build Add Member Rest API

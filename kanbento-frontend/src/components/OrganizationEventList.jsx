@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllEvents } from "../services/EventService";
+import { useNavigate, useParams } from "react-router-dom";
+import { getOrganizationEvents } from "../services/OrganizationService";
 
 const OrganizationEventList = () => {
     const [events, setEvents] = useState([]);
 
+    const { id } = useParams();
+
     useEffect(() => {
-        getAllEvents()
+        getOrganizationEvents(id)
             .then((response) => {
                 setEvents(response.data);
             })
