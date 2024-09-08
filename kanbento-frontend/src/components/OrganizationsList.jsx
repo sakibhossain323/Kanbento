@@ -17,8 +17,6 @@ const OrganizationsList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(user);
-
         getOrganizationsByOwnerId(user.id)
             .then((response) => {
                 setOrganizations(response.data);

@@ -44,4 +44,7 @@ public class Organization {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
     )
     private Set<KanbentoUser> members;
+
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Event> events;
 }

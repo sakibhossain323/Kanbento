@@ -1,5 +1,6 @@
 package com.canseesharp.kanbento.service.implementation;
 
+import com.canseesharp.kanbento.dto.EventDto;
 import com.canseesharp.kanbento.dto.KanbentoUserDto;
 import com.canseesharp.kanbento.dto.OrganizationDto;
 import com.canseesharp.kanbento.entity.KanbentoUser;
@@ -95,6 +96,14 @@ public class DefaultOrganizationService implements OrganizationService {
 
         this.findByIdOrThrow(id);
         organizationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<EventDto> getAllEvents(Long organizationId) {
+        Organization organization = this.findByIdOrThrow(organizationId);
+        return organization.getEvents().stream()
+                .map(event -> modelMapper.map(event, EventDto.class))
+                .toList();
     }
 
     @Override
